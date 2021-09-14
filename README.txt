@@ -1,4 +1,4 @@
-This repo has been made to store and allow the sharing of the notes for the venerable
+This repo has been made to store and allow the sharing of the notes for York University's venerable
 EECS 3481
 This repo was first created in the season of fall of the year of our lord 2021.
 
