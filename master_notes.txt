@@ -1,4 +1,64 @@
 ## Master Notes for EECS 3481
 First created Sep 14th 2021
 
+Lecture 2
+    Modular Arithmetic
 
+        12 == 3 mod 9
+            * here the == represents to the three lined equivalnce
+        
+        this is read as 12 is congruent to 3 in respect to mod 9. basically what it says is that
+            12 mod 9 = 3 mod 9
+
+        Definition of Modulus Operation
+            Let a, r, m be integers and m > 0. We write 
+                a == r mod m
+            if (r - a) is divisable by m. 
+            m called modulus
+            r called remainder
+            
+                this definition means that the r is not unique. For a = 12, m = 9, you can have r = 3 (the obvious r). In which case you would have (r - a) = -9, and -9 is divisible by 9. You could also have had r = 12. In which case 12 - 12 = 0 is divisible by 0.
+
+    
+        Modular Division 0
+            If ad = bd mod n
+            then a = b mod (n / gcd(d, n))
+                If gcd(d, n) = 1 -- they are co prime -- normal division applies a == b mod n
+
+            Example 0
+                20 == 2 mod 6
+                10 * 2 == 1 * 2 mod (3 * 2)  --> gcd(d, n) = gcd(2, 6) = 2 
+                so  
+                    10 == 1 mod 3
+
+            Example 1 
+                3x == 12 mod 7
+                3x == 4 * 3 mod 7 --> gcd(d, n) = gcd(3, 7) = 1 * co prime
+                x == 4 mod 7
+        
+            Example 2
+                3x == 4 mod 7 
+                here we don't have a common d, so we can add by n until we get it
+                3x == 4 + 7 + 7 mod 7
+                3x == 18 mod 7
+                x == 6 mod 7
+
+        Modular Division 1
+            Given three positive numbers a, d and m. Compute a / d under modulo m. 
+                The task is basically to find a number c such that (d * c) % m = a % m.
+                    This can only happen in d and m are co prime that is gcd(d, m) = 1 
+                
+                    a / d == c mod m iff gcd(d, m) = 1
+
+                    Example 0
+                        1 / 2 == c mod 9 exists because gcd(d, m) = gcd(2, 9) = 1
+                        The explanation in the slides were not substantial, so I took a guess as to how to solve this euation. 
+                        (2 * c) % mod 9 = 1 % mod 9
+                        (2 * c) % mod 9 = 1
+                        (2 * c) = 9k + 1, where k is a Natural number
+                        c = (9k + 1) / 2 where c is an int
+                        so c = 1, 5, 14, ... 
+                    
+                    Example 1
+                        1 / 6 == c mod 9
+                        no c exists because gcd(6, 9) = 3  
