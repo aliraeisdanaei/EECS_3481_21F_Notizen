@@ -1,7 +1,7 @@
 ## Master Notes for EECS 3481
 First created Sep 14th 2021
 
-Lecture 2
+Lecture 2 Classical Crypto P1
     Modular Arithmetic
 
         12 == 3 mod 9
@@ -9,6 +9,9 @@ Lecture 2
         
         this is read as 12 is congruent to 3 in respect to mod 9. basically what it says is that
             12 mod 9 = 3 mod 9
+                In a corrupted sense, when writing 12 == 3 mod 9, it is meant
+                    12 mod 9 = 3 and sometimes also
+                    12 = 3 mod 9
 
         Definition of Modulus Operation
             Let a, r, m be integers and m > 0. We write 
@@ -62,3 +65,78 @@ Lecture 2
                     Example 1
                         1 / 6 == c mod 9
                         no c exists because gcd(6, 9) = 3  
+
+Lecture 3 Classical Crypto P2
+ 
+    Vigenere Cipher - Polyalphabetic - the same letter gets mapped to different letters
+        Watch this video it explains it well: https://www.youtube.com/watch?v=QgHnr8-h0xI
+            It explains why the crypto analysis works. 
+
+        Actual cipher is pretty simple
+            Just like ceaser's cipher, but you do your shift based on the letter of your key. 
+
+            c_i = (p_i + k_(i % len(key)) % 26
+
+        To decipher just siimply do the reverse
+
+            p_i = (c_i - k_(i % len(key)) % 26  
+
+        Now the cryptoanalysis falls into these steps:
+
+            1. Determine key length
+                To determine the key length two methods can be used
+                A. The method in the slide
+                    i. Start with a test key length of 2
+                    ii. break your cipher text into segments based on the test key length (as explained in 2.)
+                    iii. Get frquency of letters for each segment
+                        this is best represented in a vector where each index is the empirical probability that a letter of that index would appear
+                            i.e. V = {p(A), p(B), ... }
+                    iv. Determine the index of coincidence for each segment
+                        index of coincidence is a measure of the probability that each letter would apprear twice
+                            p(AA) = p(A) * p(A) = p(A)^2
+                        so the 
+                            IC = p(AA) + p(BB) + ... 
+                               = p(A)^2 + p(B)^2 + ...
+                               = V . V // dot product of the frequency vector with itself as explained in iii.
+                    v. now the IC is significant because the IC of english is about 0.0667
+                        so if the IC =. 0.0667 key_length = test_key_length
+                            else test_key_length++ goto i
+
+                B. The method in the video https://www.youtube.com/watch?v=QgHnr8-h0xI
+                    i = 0
+                    cipher_text_shifted_i = cipher_text
+                    dot_product_array = []
+                    
+                    do for some time 
+                        fvector_cipher_txt = determine frequency vector for cipher_text// explained in A. iii.
+                        fvector_cipher_txt_shifted = determine frequency vector for cipher_text_shifted_i
+
+                        dot_product_i = fvector_cipher_txt dot fvector_cipher_txt_shifted
+                        dot_product_array[i] = dot_product_i
+
+                        i++
+
+
+                    the largest dot product in the array occurs at every interval -- that interval is your key_length
+                        i.e. 
+                        dot_product_array = [1, 2, 12, 3, 3, 12, 2, 4, 12, ... ]
+                                                    ^         ^         ^
+                        this is because the two vectors have the same magnitude as they are essentially the vector of the english language but somehow shifted. 
+                            and dot product of A and B is 
+
+                                = |A||B|cos(theta)
+                                so this dot product for vectors of same magnitude would be highest when their theta is 0
+                                    basically when the two vectors are equal. 
+                                        we reach a vector that is ~equal on the interval of the length of the key
+
+            2. Breaking cipher text into segments based on key length
+                Group letters with the same mod of the key length into segments
+                Step is easily explained with this example:
+                    Key length = 3
+                    G H W I O W R R R C O P
+                    0 1 2 0 1 2 0 1 2 0 1 2 //i mod key length
+                    
+                    Now group based on the i mod key length
+
+            3. Perform frequency analysis on the segments based on the key length
+                
