@@ -136,6 +136,11 @@ Lecture 3 Classical Crypto P2
                     G H W I O W R R R C O P
                     0 1 2 0 1 2 0 1 2 0 1 2 //i mod key length
                     
+                        That is 
+                            0 --> G I R O
+                            1 --> H O R O 
+                            ...
+                    
                     Now group based on the i mod key length
 
             3. Perform frequency analysis on the segments based on the key length
