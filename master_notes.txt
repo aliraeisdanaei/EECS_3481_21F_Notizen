@@ -91,7 +91,7 @@ Lecture 3 Classical Crypto P2
                     iii. Get frquency of letters for each segment
                         this is best represented in a vector where each index is the empirical probability that a letter of that index would appear
                             i.e. V = {p(A), p(B), ... }
-                    iv. Determine the index of coincidence for each segment
+                    iv. Determine the index of coincidence for each segment and average them out
                         index of coincidence is a measure of the probability that each letter would apprear twice
                             p(AA) = p(A) * p(A) = p(A)^2
                         so the 
